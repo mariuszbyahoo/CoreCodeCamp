@@ -22,11 +22,11 @@ namespace CoreCodeCamp.Controllers
             this.mapper = mapper;
         }
         [HttpGet]
-        public async Task<ActionResult<CampModel[]>> GetCamps()
+        public async Task<ActionResult<CampModel[]>> GetCamps(bool includeTalks = false)
         {
             try
             {
-                var results = await _repository.GetAllCampsAsync();
+                var results = await _repository.GetAllCampsAsync(includeTalks);
 
                 return mapper.Map<CampModel[]>(results);
             }
