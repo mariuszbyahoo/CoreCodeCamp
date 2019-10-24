@@ -14,12 +14,12 @@ namespace CoreCodeCamp.Controllers
     public class CampsController : ControllerBase
     {
         private readonly ICampRepository _repository;
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
 
         public CampsController(ICampRepository repository, IMapper mapper)
         {
         _repository = repository;
-            this.mapper = mapper;
+            _mapper = mapper;
         }
         [HttpGet]
         public async Task<ActionResult<CampModel[]>> GetCamps(bool includeTalks = false)
@@ -28,7 +28,7 @@ namespace CoreCodeCamp.Controllers
             {
                 var results = await _repository.GetAllCampsAsync(includeTalks);
 
-                return mapper.Map<CampModel[]>(results);
+                return _mapper.Map<CampModel[]>(results);
             }
             catch (Exception)
             {
@@ -45,7 +45,24 @@ namespace CoreCodeCamp.Controllers
 
                 if (result == null) return NotFound();
 
-                return mapper.Map<CampModel>(result);
+                return _mapper.Map<CampModel>(result);
+            }
+            catch (Exception)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError, "DB fail");
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<CampModel[]>> SearchByDate(DateTime theDate, bool includeTalks = false)
+        {
+            try
+            {
+                var results = await _repository.GetAllCampsByEventDate(theDate, includeTalks);
+
+                if (!results.Any()) return NotFound();
+
+                return _mapper.Map<CampModel[]>(results);
             }
             catch (Exception)
             {
