@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using CoreCodeCamp.Data;
+using CoreCodeCamp.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +23,7 @@ namespace CoreCodeCamp
         }
 
         public IConfiguration Configuration { get; }
+        public CampModel campModel { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -30,6 +33,9 @@ namespace CoreCodeCamp
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.AddAutoMapper();
+
             services.AddControllers();
         }
 
