@@ -46,9 +46,9 @@ namespace CoreCodeCamp.Controllers
         {
             try
             {
-                var talks = repository.GetTalkByMonikerAsync(moniker, id);
-                if (Talk == null) return NotFound();
-                return mapper.Map<TalkModel>(talks.Result);
+                var talk = repository.GetTalkByMonikerAsync(moniker, id);
+                if (talk == null) return NotFound();
+                return mapper.Map<TalkModel>(talk.Result);
             }
             catch (Exception)
             {
