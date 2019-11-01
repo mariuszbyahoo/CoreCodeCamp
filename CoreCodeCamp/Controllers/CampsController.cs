@@ -23,7 +23,7 @@ namespace CoreCodeCamp.Controllers
 
         public CampsController(ICampRepository repository, IMapper mapper, LinkGenerator linkGenerator)
         {
-        _repository = repository;
+            _repository = repository;
             _mapper = mapper;
             _linkGenerator = linkGenerator;
         }
