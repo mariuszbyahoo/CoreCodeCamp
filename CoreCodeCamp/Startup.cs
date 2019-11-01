@@ -37,6 +37,7 @@ namespace CoreCodeCamp
             services.AddAutoMapper();
             services.AddApiVersioning(opt =>
             {
+                opt.AssumeDefaultVersionWhenUnspecified = true;
                 opt.DefaultApiVersion = new ApiVersion(1, 1);
                 opt.ReportApiVersions = true;
             });
